@@ -1,15 +1,13 @@
-const PORT = 3000;
 const express = require('express');
-const server = express();
+const apiRouter = express.Router();
 
-server.use((req, res, next) => {
-    console.log("<____Body Logger START____>");
-    console.log(req.body);
-    console.log("<_____Body Logger END_____>");
-  
-    next();
-  });
+const usersRouter = require('./users');
+apiRouter.use('/users', usersRouter);
 
-server.listen(PORT, () => {
-  console.log('The server is up on port', PORT)
-});
+const postsRouter = require('./posts');
+apiRouter.use('/posts', postsRouter);
+
+const tagsRouter = require('./tags');
+apiRouter.use('/tags', tagsRouter);
+
+module.exports = apiRouter;
